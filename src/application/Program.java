@@ -1,33 +1,13 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import db.DB;
-import db.DbIntegrityException;
+import model.entities.Department;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		Connection connection = null;
-		PreparedStatement st = null;
+		Department obj = new Department(1, "Books");
+		System.out.println(obj);
 		
-		try {
-			connection = DB.getConnection();
-			
-			st = connection.prepareStatement("DELETE FROM department WHERE id = ?");
-			
-			st.setInt(1, 2);
-			int rowsAffected = st.executeUpdate();
-			System.out.println("Done! Rows affected: " + rowsAffected);
-			
-		} catch (SQLException e) {
-			throw new DbIntegrityException(e.getMessage());
-		} finally {
-			DB.closeStatement(st);
-			DB.closeConnection();
-		}
 	}	
 }
